@@ -5,7 +5,7 @@
   <div class="flex flex-col w-full">
     <div class="font-semibold text-sm mb-2"><%= @product.owner.name %></div>
     <div class="font-bold text-2xl text-gray-900 mb-2"><%= @product.name %></div>
-    <div class="font-normal text-md text-gray-500 mb-4">
+    <div class="font-base text-md text-gray-500 mb-4">
       <%= @product.short_description %>
     </div>
     <div class="flex flex-row items-center justify-stretch w-full">
@@ -45,7 +45,7 @@
             <div class="text-gray-500 text-xs"><%= tier.description %></div>
           </div>
           <div class="flex-1"></div>
-          <div class="font-normal text-lg text-gray-700"><%= number_with_delimiter tier.price, :delimiter => "," %> 원</div>
+          <div class="font-base text-lg text-gray-700"><%= number_with_delimiter tier.price, :delimiter => "," %> 원</div>
         </div>
       <% end %>
     </div>
@@ -58,4 +58,5 @@
   >
     구매하기
   </button>
+  <i class="fa-solid fa-chevron-left"></i>
 </div>
