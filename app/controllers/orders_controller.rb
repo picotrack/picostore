@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
     before_action :get_product, only: [:new]
 
     def new
-        @product_tier_id = ProductTier.find(params[:product_tier_id])
+        # @product_tier_id = ProductTier.find(params[:product_tier_id])
     end
 
     private

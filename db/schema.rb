@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_15_040200) do
+ActiveRecord::Schema.define(version: 2022_06_15_121051) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,16 @@ ActiveRecord::Schema.define(version: 2022_06_15_040200) do
     t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "product_tier_id"
+    t.integer "payment_id"
+    t.string "email"
+    t.boolean "payment_complete"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "product_tiers", force: :cascade do |t|

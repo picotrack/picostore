@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="flex-1"></div>
-      <div class="text-xl font-semibold">5,900원</div>
+      <div class="text-xl font-semibold"><%= @product.price_tag %></div>
     </div>
   </div>
   <div class="py-4"></div>
@@ -29,7 +29,7 @@
       <p class="text-gray-900">
         <b>배송비</b>
       </p>
-      <p class="text-gray-700">3000원</p>
+      <p class="text-gray-700"></p>
     </div>
   </div>
   <div class="flex flex-col space-y-2">
@@ -37,8 +37,9 @@
       <div class="text-sm font-semibold mb-2">옵션 선택</div>
       <% @product.product_tiers.each do |tier| %>
         <div
-          class="border border-gray-400 shadow rounded-xl p-4 w-full flex flex-row items-center justify-items-stretch"
+          class="product-tier shadow rounded-xl p-4 w-full flex flex-row items-center justify-items-stretch"
           data-tier-id="<%= tier.id %>"
+          onclick="handleProductTierClick(<%= tier.id %>)"
         >
           <div class="flex flex-col">
             <div class="font-bold text-lg"><%= tier.name %></div>
@@ -56,8 +57,50 @@
 <div class="fixed bottom-0 w-full bg-transparent p-6">
   <button
     class="w-full font-semibold text-white flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow shadow-lg bg-black"
+    onclick="handleActionButtonClick()"
   >
     구매하기
   </button>
 </div>
-<script></script>
+<style>
+  .product-tier {
+    transition: all 0.2s ease;
+  }
+
+  .product-tier.selected {
+    border: 2px solid green;
+  }
+
+  .product-tier:not(.selected) {
+    border: 2px solid transparent;
+  }
+</style>
+<script>
+  let selectedProductTierId = null;
+  function redraw() {
+    const productTierElements = document.querySelectorAll(".product-tier")
+    for (let productTierElement of productTierElements) {
+      const tierId = parseInt(productTierElement.getAttribute("data-tier-id"))
+      if (tierId == selectedProductTierId) {
+        if (!productTierElement.classList.contains("selected")) {
+          productTierElement.classList.add("selected")
+        }
+      } else {
+        productTierElement.classList.remove("selected")
+      }
+    }
+  }
+
+  function handleProductTierClick(tierId) {
+    selectedProductTierId = tierId
+    redraw()
+  }
+
+  function handleActionButtonClick() {
+    if (selectedProductTierId === null) {
+      alert("상품 티어를 선택해주세요")
+    } else {
+      alert(`상품 티어: ${selectedProductTierId}`)
+    }
+  }
+</script>
