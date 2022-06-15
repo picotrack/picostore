@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   
   # Products
   get "products/:id", to: "products#show"
+  get "products/:product_id/orders/new", to: "orders#new"
 
   namespace :manage do
     resources :products

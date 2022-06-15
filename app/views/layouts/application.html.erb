@@ -14,8 +14,10 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%# JQUERY %>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   </head>
-  <body>
+  <body id="app">
     <div class="p-8">
       <% if flash[:notice] %>
         <%= content_tag :h1, flash[:notice] %>
