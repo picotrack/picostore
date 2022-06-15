@@ -1,0 +1,61 @@
+<div class="bg-black h-full">
+  <img class="object-cover h-full" src="https://picsum.photos/500/300" alt="" />
+</div>
+<div class="p-6">
+  <div class="flex flex-col w-full">
+    <div class="font-semibold text-sm mb-2"><%= @product.owner.name %></div>
+    <div class="font-bold text-2xl text-gray-900 mb-2"><%= @product.name %></div>
+    <div class="font-normal text-md text-gray-500 mb-4">
+      <%= @product.short_description %>
+    </div>
+    <div class="flex flex-row items-center justify-stretch w-full">
+      <div class="flex flex-row items-center justify-start space-x-2">
+        <div class="space-x-1">
+          <i class="fa-solid fa-star"></i>
+          <span class="text-sm">4.2</span>
+          <span class="text-sm text-gray-400 font-light"> (36,821 개의 평점) </span>
+        </div>
+      </div>
+      <div class="flex-1"></div>
+      <div class="text-xl font-semibold">5,900원</div>
+    </div>
+  </div>
+  <div class="py-4"></div>
+  <div class="text-gray-600 text-md trix-content">
+    <%= @product.description %>
+  </div>
+  <div class="info flex flex-col">
+    <div class="flex flex-col space-y-2">
+      <p class="text-gray-900">
+        <b>배송비</b>
+      </p>
+      <p class="text-gray-700">3000원</p>
+    </div>
+  </div>
+  <div class="flex flex-col space-y-2">
+    <div class="space-y-4">
+      <div class="text-sm font-semibold mb-2">옵션 선택</div>
+      <% @product.product_tiers.each do |tier| %>
+        <div
+          class="border border-gray-400 shadow rounded-xl p-4 w-full flex flex-row items-center justify-items-stretch"
+          data-tier-id="<%= tier.id %>"
+        >
+          <div class="flex flex-col">
+            <div class="font-bold text-lg"><%= tier.name %></div>
+            <div class="text-gray-500 text-xs"><%= tier.description %></div>
+          </div>
+          <div class="flex-1"></div>
+          <div class="font-normal text-lg text-gray-700"><%= number_with_delimiter tier.price, :delimiter => "," %> 원</div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="h-20"></div>
+<div class="fixed bottom-0 w-full bg-transparent p-6">
+  <button
+    class="w-full font-semibold text-white flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow shadow-lg bg-black"
+  >
+    구매하기
+  </button>
+</div>

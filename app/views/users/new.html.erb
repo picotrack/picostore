@@ -1,0 +1,6 @@
+<%= form_with url: users_path, scope: :user do |f| %>
+  <%= f.text_field :email, placeholder: "email" %><br>
+  <%= f.text_field :name, placeholder: "name" %><br>
+  <%= f.password_field :password, placeholder: "password" %><br>
+  <%= f.submit "Sign Up!" %>
+<% end %>
