@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
-    before_action :get_product, only: [:new]
+    before_action :get_product, only: [:ask_email, :payment]
 
-    def new
-        # @product_tier_id = ProductTier.find(params[:product_tier_id])
-    end
+    def ask_email; end
+    def payment; end
+
 
     private
 
