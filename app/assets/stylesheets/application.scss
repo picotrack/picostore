@@ -1,0 +1,88 @@
+:root {
+  --primary-color: #00b8a9;
+  --secondary-color: #f8f3d4;
+  --red-color: #f6416c;
+  --yellow-color: #ffde7d;
+  --white-color: #eeeeee;
+  --black-color: #222831;
+  --dark-color: #393e46;
+}
+
+@import "materialize/components/color-variables";
+$primary-color: #00b8a9 !default;
+$secondary-color: #00b8a9 !default;
+// @import "materialize";
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css");
+
+/* *:not(.input-field) {
+   font-family: "Pretendard";
+ } */
+
+html {
+  font-size: unset;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+.input-wrapper {
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+
+  transition: all 0.2s ease;
+
+  .input-label {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 4px;
+  }
+
+  input {
+    border: none;
+    outline: none;
+    padding: 0px;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.75);
+    font-weight: 500;
+  }
+
+  input::placeholder {
+    color: rgba(0, 0, 0, 0.25);
+    font-weight: 500;
+  }
+
+  input:focus {
+    border: none !important;
+    outline: none !important;
+    --tw-ring-color: transparent;
+  }
+}

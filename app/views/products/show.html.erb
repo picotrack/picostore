@@ -1,9 +1,9 @@
-<div class="bg-black h-full">
-  <img class="object-cover h-full" src="https://picsum.photos/500/300" alt="" />
+<div class="bg-black" style="height: 100vw; max-height: 448px; flex-shrink: 0; -webkit-flex: 0;">
+  <img class="object-cover" style="height: 100vw; max-height: 448px;" src="https://picsum.photos/448/448" alt="" />
 </div>
-<div class="p-6">
+<div class="p-6 relative bg-white rounded-tl-3xl rounded-tr-3xl" style="bottom: 30px;">
   <div class="flex flex-col w-full">
-    <div class="font-semibold text-sm mb-2"><%= @product.owner.name %></div>
+    <div class="font-semibold text-sm mb-2" style="color: var(--primary-color);"><%= @product.owner.name %></div>
     <div class="font-bold text-2xl text-gray-900 mb-2"><%= @product.name %></div>
     <div class="font-base text-md text-gray-500 mb-4">
       <%= @product.short_description %>
@@ -24,83 +24,20 @@
   <div class="text-gray-600 text-md trix-content">
     <%= @product.description %>
   </div>
-  <div class="info flex flex-col">
-    <div class="flex flex-col space-y-2">
-      <p class="text-gray-900">
-        <b>배송비</b>
-      </p>
-      <p class="text-gray-700"></p>
-    </div>
-  </div>
   <div class="flex flex-col space-y-2">
-    <div class="space-y-4">
-      <div class="text-sm font-semibold mb-2">옵션 선택</div>
-      <% @product.product_tiers.each do |tier| %>
-        <div
-          class="product-tier shadow rounded-xl p-4 w-full flex flex-row items-center justify-items-stretch"
-          data-tier-id="<%= tier.id %>"
-          onclick="handleProductTierClick(<%= tier.id %>)"
-        >
-          <div class="flex flex-col">
-            <div class="font-bold text-lg"><%= tier.name %></div>
-            <div class="text-gray-500 text-xs"><%= tier.description %></div>
-          </div>
-          <div class="flex-1"></div>
-          <div class="font-base text-lg text-gray-700"><%= number_with_delimiter tier.price, :delimiter => "," %> 원</div>
-        </div>
-      <% end %>
-    </div>
   </div>
 </div>
-<div class="h-20">
-</div>
-<div class="fixed bottom-0 w-full bg-transparent p-6">
-  <button
-    class="w-full font-semibold text-white flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow shadow-lg bg-black"
-    onclick="handleActionButtonClick()"
+<div class="sticky bottom-0 w-full bg-transparent p-6">
+  <a
+    href="/products/<%= @product.id %>/orders/new"
+    class="action-button w-full font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow shadow-lg"
   >
     구매하기
-  </button>
+  </a>
 </div>
 <style>
-  .product-tier {
-    transition: all 0.2s ease;
-  }
-
-  .product-tier.selected {
-    border: 2px solid green;
-  }
-
-  .product-tier:not(.selected) {
-    border: 2px solid transparent;
+  .action-button {
+    background-color: var(--primary-color);
+    color: white;
   }
 </style>
-<script>
-  let selectedProductTierId = null;
-  function redraw() {
-    const productTierElements = document.querySelectorAll(".product-tier")
-    for (let productTierElement of productTierElements) {
-      const tierId = parseInt(productTierElement.getAttribute("data-tier-id"))
-      if (tierId == selectedProductTierId) {
-        if (!productTierElement.classList.contains("selected")) {
-          productTierElement.classList.add("selected")
-        }
-      } else {
-        productTierElement.classList.remove("selected")
-      }
-    }
-  }
-
-  function handleProductTierClick(tierId) {
-    selectedProductTierId = tierId
-    redraw()
-  }
-
-  function handleActionButtonClick() {
-    if (selectedProductTierId === null) {
-      alert("상품 티어를 선택해주세요")
-    } else {
-      alert(`상품 티어: ${selectedProductTierId}`)
-    }
-  }
-</script>
