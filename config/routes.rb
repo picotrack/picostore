@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    get "email_authentication/request_email_authentication", to: "email_authentication#request_email_authentication"
+    post "email_authentication/request_email_authentication", to: "email_authentication#request_email_authentication"
+    post "email_authentication/verify_email_authentication", to: "email_authentication#verify_email_authentication"
   end
 end
