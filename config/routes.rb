@@ -15,4 +15,8 @@ Rails.application.routes.draw do
   namespace :manage do
     resources :products
   end
+
+  namespace :api do
+    get "email_authentication/request_email_authentication", to: "email_authentication#request_email_authentication"
+  end
 end

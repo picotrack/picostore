@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_15_121051) do
+ActiveRecord::Schema.define(version: 2022_06_30_173445) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,13 @@ ActiveRecord::Schema.define(version: 2022_06_15_121051) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "email_authentication_requests", force: :cascade do |t|
+    t.string "code"
+    t.datetime "expires_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "product_id"
     t.integer "product_tier_id"
@@ -60,21 +67,13 @@ ActiveRecord::Schema.define(version: 2022_06_15_121051) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "product_tiers", force: :cascade do |t|
-    t.integer "product_id"
-    t.string "name"
-    t.text "description"
-    t.integer "price"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "short_description"
     t.integer "owner_id"
+    t.integer "price"
   end
 
   create_table "users", force: :cascade do |t|
