@@ -3,6 +3,8 @@ include ActionView::Helpers::NumberHelper
 class Product < ApplicationRecord
   has_rich_text :description
   has_one_attached :image
+  has_one_attached :thumbnail
+  has_many_attached :files
 
   belongs_to :owner, :class_name => "User", :foreign_key => :owner_id
 

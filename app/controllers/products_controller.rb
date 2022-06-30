@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
     before_action :get_product, only: [:show]
+
+    def index
+    end
     
     def show
     end

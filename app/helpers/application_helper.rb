@@ -10,4 +10,11 @@ module ApplicationHelper
             return false
         end
     end
+
+    def current_user
+        if is_logged_in
+            @user = User.find(session[:user_id])
+            return @user
+        end
+    end
 end

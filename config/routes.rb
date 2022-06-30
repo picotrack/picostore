@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'home#index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   get 'sessions/new'
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
   resources :users
   
   # Products
+  get "products", to: "products#index"
   get "products/:id", to: "products#show"
   get "products/:product_id/order/ask-email", to: "orders#ask_email"
   get "products/:product_id/order/payment", to: "orders#payment"

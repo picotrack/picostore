@@ -10,7 +10,7 @@ class Api::EmailAuthenticationController < ApplicationController
         @email_authentication.used = false
         @email_authentication.save
 
-        OrderMailer.with(email: email, code: code).send_email_authentication_code.deliver_now
+        OrderMailer.with(email: email, code: code).send_email_authentication_code.deliver_later
 
         if email
             render :json => {
@@ -33,7 +33,7 @@ class Api::EmailAuthenticationController < ApplicationController
             email_authentication = EmailAuthenticationRequest.find(email_authentication_id)
             if email_authentication.code != code
                 render :json => {
-                    :message => "email authentication code does not match",
+                    :message => "인증번호가 틀렸습니다",
                     :code => "#{email_authentication.code} != #{code}" # TODO - remove code
                 }, :status => 403
                 # TODO - add expiration
@@ -46,7 +46,7 @@ class Api::EmailAuthenticationController < ApplicationController
                 email_authentication.used = true
                 email_authentication.save
                 render :json => {
-                    :message => "success"
+                    :message => "인증이 완료되었습니다"
                 }
             end
         rescue ActiveRecord::RecordNotFound

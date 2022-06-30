@@ -1,0 +1,12 @@
+<p>
+  로그인 여부: <%= session[:user_id] ? "예" : "아니오" %>
+</p>
+<p>
+  사용자 이름: <%= current_user.name %>
+</p>
+<p>
+  사용자 이메일: <%= current_user.email %>
+</p>
+<p>
+  사용자 아이디: <%= current_user.id %>
+</p>
