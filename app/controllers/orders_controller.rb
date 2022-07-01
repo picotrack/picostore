@@ -7,10 +7,6 @@ class OrdersController < ApplicationController
         @order.uuid = SecureRandom.uuid
         @order.name = @product.name + " 주문"
         @order.price = @product.price
-        
-        # if not @order.save
-        #     render :json => @order.errors.full_messages
-        # end
     end
 
     def create

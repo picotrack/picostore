@@ -23,8 +23,9 @@ Rails.application.routes.draw do
   # Payments
   get "payments/new", to: "payments#new"
 
-  post "email_authentication_requests", to: "email_authentication_requests#create" # API Route
-  post "email_authentication_requests/verify", to: "email_authentication_requests#verify"
+  post "email_authentication_requests", to: "email_authentication_request#create" # API Route
+  get "email_authentication_requests", to: "email_authentication_request#create" # todo - delete
+  post "email_authentication_requests/verify", to: "email_authentication_request#verify"
 
   get "toss_payments/success", to: "toss_payments#success"
   get "toss_payments/failure", to: "toss_payments#failure"

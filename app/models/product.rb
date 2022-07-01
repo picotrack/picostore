@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   has_many_attached :files
 
   belongs_to :owner, :class_name => "User", :foreign_key => :owner_id
+  has_many :orders
 
 
   def price_tag
