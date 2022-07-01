@@ -27,7 +27,7 @@
 <div class="flex flex-1"></div>
 <div class="sticky bottom-0 w-full bg-transparent p-6">
   <a
-    href="/products/<%= @product.id %>/order/new"
+    href="/orders/new?product_id=<%= @product.id %>"
     style="background-color: var(--primary-color);"
     class="w-full font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
   >

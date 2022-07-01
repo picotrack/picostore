@@ -1,6 +1,5 @@
 class OrdersController < ApplicationController
-    before_action :get_order_product, only: [:new, :create]
-    before_action :get_payment_order, only: [:success, :failure]
+    before_action :get_order_product, only: [:new]
 
     def new
         @order = Order.new
@@ -9,12 +8,12 @@ class OrdersController < ApplicationController
         @order.name = @product.name + " 주문"
         @order.price = @product.price
         
-        if not @order.save
-            render :json => @order.errors.full_messages
-        end
+        # if not @order.save
+        #     render :json => @order.errors.full_messages
+        # end
     end
 
-    def set_product_email
+    def create
     end
 
     def show
@@ -24,9 +23,5 @@ class OrdersController < ApplicationController
 
     def get_order_product
         @product = Product.find(params[:product_id])
-    end
-
-    def get_payment_order
-        @order = Order.where(uuid: params["orderId"]).first
     end
 end
