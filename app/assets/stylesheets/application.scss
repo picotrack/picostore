@@ -1,6 +1,6 @@
 :root {
-  --primary-color: #999;
-  --secondary-color: #f8f3d4;
+  --primary-color: #ffde7d;
+  --secondary-color: #f08a5d;
   --red-color: #f6416c;
   --yellow-color: #ffde7d;
   --white-color: #eeeeee;
@@ -33,6 +33,9 @@ $secondary-color: #00b8a9 !default;
 /* *:not(.input-field) {
    font-family: "Pretendard";
  } */
+* {
+  font-family: "SUIT Variable", sans-serif !important;
+}
 
 html {
   font-size: unset;

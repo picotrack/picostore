@@ -1,7 +1,7 @@
-class Api::EmailAuthenticationController < ApplicationController
+class EmailAuthenticationRequestController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    def request_email_authentication
+    def create
         code = rand.to_s[2..7]
         email = params[:email]
         @email_authentication = EmailAuthenticationRequest.new
@@ -25,7 +25,7 @@ class Api::EmailAuthenticationController < ApplicationController
         end
     end
 
-    def verify_email_authentication
+    def verify
         email_authentication_id = params[:email_authentication_id]
         code = params[:code]
         

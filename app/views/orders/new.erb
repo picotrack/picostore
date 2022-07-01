@@ -17,73 +17,82 @@
   </form>
 </div>
 <div class="flex-1"></div>
+<%= @is_saved %>
 <div class="w-full flex flex-row items-center justify-center text-base text-gray-500 font-light mb-4 underline" id="retry">
   재전송하기
 </div>
-<div 
+<a
   id="action-button"
-  class="mb-6 mx-6 p-4 bg-primary font-semibold flex flex-col items-center justify-center text-white rounded-xl text-lg bg-black">
+    style="background-color: var(--primary-color);"
+    class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
+  >
   인증번호 전송
-</div>
+</a>
 <script>
   var clientKey = 'test_ck_Kma60RZblrq9JQBeL2ErwzYWBn14'
   var tossPayments = TossPayments(clientKey)
 
-  function proceedToPayment() {
-    return tossPayments.requestPayment('카드', {
-      amount: <%= @product.price %>,
-      orderId: '<%= @order.uuid %>',
-      orderName: '<%= @order.name %>',
-      customerName: '<%= current_user.name %>',
-      successUrl: '<%= root_url %>api/payments/success',
-      failUrl: '<%= root_url %>api/payments/failure',
-    })
-  }
-
   function handleAjaxError(xhr, status) {
     alert(xhr.responseJSON['message'])
   }
+
   function validateEmail($email) {
    var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
    return emailReg.test( $email );
   }
+
   function sendEmail() {
     const email = $("#email-input").val()
     $('#code-input-wrapper').show(400);
     $('#retry').show(400);
+
     $.ajax({
-      url: "/api/email_authentication/request_email_authentication",
+      url: "/email_authentication_request/",
       method: "POST",
       dataType: "json",
       data: {
         email: email
       }
-    }).done(function(json) {
+    }).done((json) => {
       $("#action-button").text("인증번호 확인")
-      $("#action-button").off('click').on('click', function() {
+      $("#action-button").off('click').on('click', () => {
         const email_authentication_id = json.email_authentication_id
         const code = $("#code-input").val()
+
+        // Verify Email Authentication
         $.ajax({
-          url: "/api/email_authentication/verify_email_authentication",
+          url: "/email_authentication_request/verify",
           method: "POST",
           dataType: "json",
           data: {
             email_authentication_id,
             code
           }
-        }).done(function(res) {
+        }).done((res) => {
           // 이메일 인증 성공적으로 완료됨
           alert("인증이 완료되었습니다. 결제 화면으로 이동합니다.")
-          proceedToPayment()
+
+          // 결제 요청
+          tossPayments.requestPayment('카드', {
+            amount: <%= @product.price %>,
+            orderId: '<%= @order.uuid %>',
+            orderName: '<%= @order.name %>',
+            customerName: '<%= current_user.name %>',
+            successUrl: '<%= root_url %>api/payments/success',
+            failUrl: '<%= root_url %>api/payments/failure',
+          })
         }).fail(handleAjaxError)
       })
     }).fail(handleAjaxError)
   }
 
-  $(document).ready(function() {
+  $(document).ready(() => {
     $('#code-input-wrapper').hide();
     $('#retry').hide();
     $("#action-button").on('click', sendEmail)
-    $("#retry").on('click', sendEmail)
+    $("#retry").on('click', () => {
+      $("#action-button").on('click', sendEmail)
+      sendEmail()
+    })
   })
 </script>

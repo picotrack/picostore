@@ -1,4 +1,4 @@
 class Order < ApplicationRecord
-    belongs_to :product
     has_one :payment
+    has_one :email_authentication_request
 end

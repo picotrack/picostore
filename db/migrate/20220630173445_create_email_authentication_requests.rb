@@ -4,6 +4,7 @@ class CreateEmailAuthenticationRequests < ActiveRecord::Migration[6.1]
       t.string :code
       t.datetime :expires_at
       t.boolean :used
+      t.integer :order_id
 
       t.timestamps
     end

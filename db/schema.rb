@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_01_000722) do
+ActiveRecord::Schema.define(version: 2022_07_01_104605) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -53,30 +53,43 @@ ActiveRecord::Schema.define(version: 2022_07_01_000722) do
   create_table "email_authentication_requests", force: :cascade do |t|
     t.string "code"
     t.datetime "expires_at"
+    t.boolean "used"
+    t.integer "order_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "used"
   end
 
   create_table "orders", force: :cascade do |t|
     t.integer "product_id"
-    t.integer "payment_id"
+    t.string "uuid"
     t.string "email"
+    t.string "name"
+    t.integer "price"
     t.boolean "payment_complete"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["uuid"], name: "index_orders_on_uuid", unique: true
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "order_id"
     t.string "uuid"
-    t.string "name"
-    t.integer "price"
+    t.string "email"
+    t.integer "amount"
+    t.boolean "complete"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["uuid"], name: "index_payments_on_uuid", unique: true
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
+    t.integer "price"
+    t.string "description"
+    t.integer "owner_id"
+    t.string "call_to_action"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "short_description"
-    t.integer "owner_id"
-    t.integer "price"
   end
 
   create_table "users", force: :cascade do |t|

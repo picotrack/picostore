@@ -3,11 +3,8 @@
 </div>
 <div class="p-6 relative bg-white rounded-tl-3xl rounded-tr-3xl" style="bottom: 30px;">
   <div class="flex flex-col w-full">
-    <div class="font-semibold text-sm mb-2" style="color: var(--primary-color);"><%= @product.owner.name %></div>
     <div class="font-bold text-2xl text-gray-900 mb-2"><%= @product.name %></div>
-    <div class="font-base text-md text-gray-500 mb-4">
-      <%= @product.short_description %>
-    </div>
+    <div class="font-light text-sm mb-2" >by <b><%= @product.owner.name %></b></div>
     <div class="flex flex-row items-center justify-stretch w-full">
       <div class="flex flex-row items-center justify-start space-x-2">
         <div class="space-x-1">
@@ -27,17 +24,14 @@
   <div class="flex flex-col space-y-2">
   </div>
 </div>
+<div class="flex flex-1"></div>
 <div class="sticky bottom-0 w-full bg-transparent p-6">
   <a
     href="/products/<%= @product.id %>/order/new"
-    class="action-button w-full font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow shadow-lg"
+    style="background-color: var(--primary-color);"
+    class="w-full font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
   >
-    구매하기
+    <%= @product.call_to_action ? @product.call_to_action : "구매하기" %>
   </a>
 </div>
-<style>
-  .action-button {
-    background-color: var(--primary-color);
-    color: white;
-  }
-</style>
+<style></style>
