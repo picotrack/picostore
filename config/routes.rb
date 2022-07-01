@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :api do
+    get 'payment/success'
+    get 'payment/failure'
+  end
   root to: 'home#index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
@@ -11,8 +15,9 @@ Rails.application.routes.draw do
   # Products
   get "products", to: "products#index"
   get "products/:id", to: "products#show"
-  get "products/:product_id/order/ask-email", to: "orders#ask_email"
-  get "products/:product_id/order/payment", to: "orders#payment"
+  get "products/:product_id/order/new", to: "orders#new"
+  post "products/:product_id/order/create", to: "orders#create"
+  get "orders/:id", to: "orders#show"
 
   namespace :manage do
     resources :products
@@ -21,5 +26,8 @@ Rails.application.routes.draw do
   namespace :api do
     post "email_authentication/request_email_authentication", to: "email_authentication#request_email_authentication"
     post "email_authentication/verify_email_authentication", to: "email_authentication#verify_email_authentication"
+
+    get "payments/success", to: "payment#success"
+    get "payments/failure", to: "payment#failure"
   end
 end

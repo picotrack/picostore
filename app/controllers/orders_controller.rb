@@ -1,9 +1,18 @@
 class OrdersController < ApplicationController
-    before_action :get_product, only: [:ask_email, :payment]
+    before_action :get_product, only: [:new, :create]
 
-    def ask_email; end
-    def payment; end
+    def new
+        @order = Order.new
+        @order.price = @product.price
+        @order.uuid = SecureRandom.uuid
+        @order.name = @product.name + " 주문"
+    end
 
+    def create
+    end
+
+    def show
+    end
 
     private
 

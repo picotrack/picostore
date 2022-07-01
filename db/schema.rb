@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_30_231709) do
+ActiveRecord::Schema.define(version: 2022_07_01_000722) do
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -65,6 +65,9 @@ ActiveRecord::Schema.define(version: 2022_06_30_231709) do
     t.boolean "payment_complete"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "uuid"
+    t.string "name"
+    t.integer "price"
   end
 
   create_table "products", force: :cascade do |t|

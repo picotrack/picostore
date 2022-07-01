@@ -26,6 +26,20 @@
   인증번호 전송
 </div>
 <script>
+  var clientKey = 'test_ck_Kma60RZblrq9JQBeL2ErwzYWBn14'
+  var tossPayments = TossPayments(clientKey)
+
+  function proceedToPayment() {
+    return tossPayments.requestPayment('카드', {
+      amount: <%= @product.price %>,
+      orderId: '<%= @order.uuid %>',
+      orderName: '<%= @order.name %>',
+      customerName: '<%= current_user.name %>',
+      successUrl: '<%= root_url %>api/payments/success',
+      failUrl: '<%= root_url %>api/payments/failure',
+    })
+  }
+
   function handleAjaxError(xhr, status) {
     alert(xhr.responseJSON['message'])
   }
@@ -58,8 +72,9 @@
             code
           }
         }).done(function(res) {
-          alert(res.responseJSON['message'])
-          window.location.href = "/products/<%= @product.id %>/order/payment"
+          // 이메일 인증 성공적으로 완료됨
+          alert("인증이 완료되었습니다. 결제 화면으로 이동합니다.")
+          proceedToPayment()
         }).fail(handleAjaxError)
       })
     }).fail(handleAjaxError)
