@@ -21,7 +21,10 @@
         <% Product.all.each do |product| %>
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
             <td class="px-3 py-2 flex flex-row items-center">
-              <img src="<%= url_for product.thumbnail %>" alt="" style="width: 4rem; height: 4rem; object-fit: cover; border-radius: 0.5rem;">
+              <% if product.thumbnail.exists? %>
+                <img src="<%= product.thumbnail %>" alt="" style="width: 4rem; height: 4rem; object-fit: cover; border-radius: 0.5rem;">
+              <% else %>
+              <% end %>
             </td>
             <th scope="row" class="px-3 py-2 font-medium text-gray-900 dark:text-white whitespace-nowrap">
               <a href="/products/<%= product.id %>">
