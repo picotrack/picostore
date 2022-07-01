@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 2022_07_01_104605) do
     t.string "email"
     t.string "name"
     t.integer "price"
-    t.boolean "payment_complete"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["uuid"], name: "index_orders_on_uuid", unique: true

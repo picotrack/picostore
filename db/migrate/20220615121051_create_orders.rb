@@ -8,8 +8,6 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.string :name
       t.integer :price
 
-      t.boolean :payment_complete
-
       t.timestamps
     end
   end
