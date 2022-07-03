@@ -1,5 +1,5 @@
-class EmailAuthenticationRequestController < ApplicationController
-    skip_before_action :verify_authenticity_token
+class EmailAuthenticationRequestsController < ApplicationController
+    skip_before_action :verify_authenticity_token, only: [:create]
 
     def create
         code = helpers.create_6_digit_code
@@ -15,7 +15,7 @@ class EmailAuthenticationRequestController < ApplicationController
                 :errors => @email_authentication.errors.full_messages
             }
         elsif email
-            # OrderMailer.with(email: email, code: code).send_email_authentication_code.deliver_later
+            OrderMailer.with(email: email, code: code).send_email_authentication_code.deliver_later
 
             render :json => {
                 :email => email,

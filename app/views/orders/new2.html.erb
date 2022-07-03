@@ -1,0 +1,22 @@
+ // // Verify Email Authentication
+// $.ajax({
+//   url: "/email_authentication_request/verify",
+//   method: "POST",
+//   dataType: "json",
+//   data: {
+//     email_authentication_id,
+//     code
+//   }
+// }).done((res) => {
+//   // 이메일 인증 성공적으로 완료됨
+//   alert("인증이 완료되었습니다. 결제 화면으로 이동합니다.")
+//   // 결제 요청
+//   tossPayments.requestPayment('카드', {
+//     amount: <%= @product.price %>,
+//     orderId: '<%= @order.uuid %>',
+//     orderName: '<%= @order.name %>',
+//     customerName: '<%= current_user.name %>',
+//     successUrl: '<%= root_url %>api/payments/success',
+//     failUrl: '<%= root_url %>api/payments/failure',
+//   })
+// }).fail(handleAjaxError)

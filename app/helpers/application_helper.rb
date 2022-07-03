@@ -17,4 +17,9 @@ module ApplicationHelper
             return @user
         end
     end
+
+    def format_price_tag(ltp)
+        ltp = number_with_delimiter ltp
+        return "#{ltp}원"
+    end
 end

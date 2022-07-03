@@ -1,12 +1,13 @@
 <div class="p-6">
   <i class="fa-solid fa-chevron-left"></i>
 </div>
-<form id="update-order-form" method="POST" action="/orders" class="flex flex-col p-6 space-y-3 justify-center">
+<form id="update-order-form" method="POST" name="order" action="/orders" class="flex flex-col p-6 space-y-3 justify-center">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <h1 class="text-3xl font-semibold text-gray-700">이메일을 알려주세요</h1>
   <h3 class="text-lg font-base text-gray-500">입력한 이메일 주소로 파일이 전송됩니다</h3>
   <div class="h-1"></div>
   <div class="input-wrapper" id="email-input-wrapper">
-    <label for="" class="input-label">이메일 주소</label>
+    <label class="input-label">이메일 주소</label>
     <input id="email-input" type="email" name="email" placeholder="example@gmail.com" style="font-size: 1.2rem;">
   </div>
   <div class="h-1"></div>
@@ -16,6 +17,8 @@
   </div>
   <%# Hidden Inputs %>
   <input id="email-authentication-id-input" type="hidden" name="email_authentication_id">
+  <input type="hidden" name="product_id" value="<%= @product.id %>">
+  <input type="submit" value="SUBMIT">
 </form>
 <div class="flex-1"></div>
 <div id="resend-button-wrapper" class="hidden">
@@ -76,43 +79,18 @@
       dataType: "json",
       data: {
         email: email,
-        order_id: <%= @order.id %>,
       }
     }).done((json1) => {
         const { email_authentication_id } = json1
         $("#email-authentication-id-input").val(email_authentication_id)
         const code = $("#code-input").val()
-
-        // // Verify Email Authentication
-        // $.ajax({
-        //   url: "/email_authentication_request/verify",
-        //   method: "POST",
-        //   dataType: "json",
-        //   data: {
-        //     email_authentication_id,
-        //     code
-        //   }
-        // }).done((res) => {
-        //   // 이메일 인증 성공적으로 완료됨
-        //   alert("인증이 완료되었습니다. 결제 화면으로 이동합니다.")
-
-        //   // 결제 요청
-        //   tossPayments.requestPayment('카드', {
-        //     amount: <%= @product.price %>,
-        //     orderId: '<%= @order.uuid %>',
-        //     orderName: '<%= @order.name %>',
-        //     customerName: '<%= current_user.name %>',
-        //     successUrl: '<%= root_url %>api/payments/success',
-        //     failUrl: '<%= root_url %>api/payments/failure',
-        //   })
-        // }).fail(handleAjaxError)
     }).fail(() => {
       console.log("error!!")
     })
   }
 
   $(document).ready(() => {
-    $("#code-input-wrapper").hide()
+    // $("#code-input-wrapper").hide()
     $("#send-email-button").on("click", sendEmail)
   })
 </script>

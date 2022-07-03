@@ -2,86 +2,29 @@
   <i class="fa-solid fa-chevron-left"></i>
 </div>
 <div class="flex flex-col p-6 space-y-3 justify-center">
-  <h1 class="text-3xl font-semibold text-gray-700">이메일을 알려주세요</h1>
-  <h3 class="text-lg font-base text-gray-500">입력한 이메일 주소로 파일이 전송됩니다</h3>
-  12,500원이 결제됩니다
+  <h1 class="text-3xl font-semibold text-gray-700">결제를 진행합니다</h1>
 </div>
 <div class="flex-1"></div>
-<div class="w-full flex flex-row items-center justify-center text-base text-gray-500 font-light mb-4 underline" id="retry">
-  재전송하기
-</div>
-<a
+<div
   id="action-button"
     style="background-color: var(--primary-color);"
     class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
+    onclick="handlePaymentButtonClick()"
   >
-  인증번호 전송
-</a>
+  <%= format_price_tag @order.price %> 결제하기
+</div>
 <script>
   var clientKey = 'test_ck_Kma60RZblrq9JQBeL2ErwzYWBn14'
-  var tossPayments = TossPayments(clientKey)
+    var tossPayments = TossPayments(clientKey)
+    function handlePaymentButtonClick() {
 
-  function handleAjaxError(xhr, status) {
-    alert(xhr.responseJSON['message'])
-  }
-
-  function validateEmail($email) {
-   var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-   return emailReg.test( $email );
-  }
-
-  function sendEmail() {
-    const email = $("#email-input").val()
-    $('#code-input-wrapper').show(400);
-    $('#retry').show(400);
-
-    $.ajax({
-      url: "/email_authentication_request/",
-      method: "POST",
-      dataType: "json",
-      data: {
-        email: email
-      }
-    }).done((json) => {
-      $("#action-button").text("인증번호 확인")
-      $("#action-button").off('click').on('click', () => {
-        const email_authentication_id = json.email_authentication_id
-        const code = $("#code-input").val()
-
-        // Verify Email Authentication
-        $.ajax({
-          url: "/email_authentication_request/verify",
-          method: "POST",
-          dataType: "json",
-          data: {
-            email_authentication_id,
-            code
-          }
-        }).done((res) => {
-          // 이메일 인증 성공적으로 완료됨
-          alert("인증이 완료되었습니다. 결제 화면으로 이동합니다.")
-
-          // 결제 요청
-          tossPayments.requestPayment('카드', {
-            amount: <%= @product.price %>,
-            orderId: '<%= @order.uuid %>',
-            orderName: '<%= @order.name %>',
-            customerName: '<%= current_user.name %>',
-            successUrl: '<%= root_url %>api/payments/success',
-            failUrl: '<%= root_url %>api/payments/failure',
-          })
-        }).fail(handleAjaxError)
-      })
-    }).fail(handleAjaxError)
-  }
-
-  $(document).ready(() => {
-    $('#code-input-wrapper').hide();
-    $('#retry').hide();
-    $("#action-button").on('click', sendEmail)
-    $("#retry").on('click', () => {
-      $("#action-button").on('click', sendEmail)
-      sendEmail()
+    tossPayments.requestPayment('카드', {
+      amount: <%= @product.price %>,
+      orderId: '<%= @order.uuid %>',
+      orderName: '<%= @order.name %>',
+      customerName: '<%= current_user.name %>',
+      successUrl: '<%= root_url %>api/payments/success',
+      failUrl: '<%= root_url %>api/payments/failure',
     })
-  })
+    }
 </script>
