@@ -6,25 +6,7 @@ class OrdersController < ApplicationController
 
     def create
         @order_params = params.permit(:email, :code, :email_authentication_id, :product_id)
-        # Check Code
-        @email_authentication_request = EmailAuthenticationRequest.where(id: @order_params[:email_authentication_id]).first
-        if not @email_authentication_request
-            render :json => {
-                :message => "이메일이 아직 발송되지 않았습니다"
-            }, status: 404
-            return
-        elsif @email_authentication_request.code != @order_params[:code]
-            render :json => {
-                :message => "인증 번호가 일치하지 않습니다"
-            }, status: 403
-            return
-        elsif @email_authentication_request.used
-            render :json => {
-                :message => "이미 사용된 인증 번호입니다"
-            }, status: 410
-            return
-        end
-
+        
         # Create Order
         @order = Order.new
         @order.product = @product

@@ -23,8 +23,8 @@
       orderId: '<%= @order.uuid %>',
       orderName: '<%= @order.name %>',
       customerName: '<%= current_user.name %>',
-      successUrl: '<%= root_url %>api/payments/success',
-      failUrl: '<%= root_url %>api/payments/failure',
+      successUrl: '<%= root_url %>toss_payments/success',
+      failUrl: '<%= root_url %>toss_payments/failure',
     })
     }
 </script>

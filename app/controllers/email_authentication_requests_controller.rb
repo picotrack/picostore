@@ -1,5 +1,5 @@
 class EmailAuthenticationRequestsController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:create]
+    skip_before_action :verify_authenticity_token, only: [:create, :verify]
 
     def create
         code = helpers.create_6_digit_code
@@ -42,12 +42,13 @@ class EmailAuthenticationRequestsController < ApplicationController
                     :code => "#{email_authentication.code} != #{code}" # TODO - remove code
                 }, :status => 403
                 # TODO - add expiration
-                # TODO - add used
             elsif email_authentication.used
                 render :json => {
                     :message => "이미 사용된 인증번호입니다",
                 }, :status => 410
             else
+                # 인증번호 맞출 시
+                # TODO - 보안 검증
                 email_authentication.used = true
                 email_authentication.save
                 render :json => {
