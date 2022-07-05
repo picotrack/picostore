@@ -59,3 +59,4 @@ gem "tailwindcss-rails", "~> 2.0"
 gem 'rails_admin', '~> 3.0'
 gem 'materialize-sass', '~> 1.0.0'
 gem "mailgun_rails"
+gem "faraday"

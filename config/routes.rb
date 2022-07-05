@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get 'payment/failure'
   end
   root to: 'home#index'
+  get "test", to: "home#test"
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   get 'sessions/new'

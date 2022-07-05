@@ -1,6 +1,6 @@
 <div class="bg-black" style="height: 100vw; max-height: 448px; flex-shrink: 0; -webkit-flex: 0;">
-  <% if @product.image.exists? %>
-    <img class="object-cover" style="width: 100%; height: 100vw; max-height: 448px;" src="<%= url_for @product.image %>" alt="" />
+  <% if @product.image.attached? %>
+    <img class="object-cover" style="width: 100%; height: 100vw; max-height: 448px;" src="<%= rails_blob_path @product.image %>" alt="" />
   <% else %>
     <img class="object-cover" style="width: 100%; height: 100vw; max-height: 448px;" src="http://placehold.jp/400x400.png" alt="" />
   <% end %>

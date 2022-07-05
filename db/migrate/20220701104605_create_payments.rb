@@ -6,7 +6,7 @@ class CreatePayments < ActiveRecord::Migration[6.1]
 
       t.string :email
       t.integer :amount
-      t.boolean :complete
+      t.boolean :confirmed
 
       t.timestamps
     end

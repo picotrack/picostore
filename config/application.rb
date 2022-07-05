@@ -10,6 +10,7 @@ module Picostore
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    config.hosts << "modern-dodos-cry-211-187-103-85.loca.lt"
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -18,5 +19,7 @@ module Picostore
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # config.autoload_paths += %W(#{config.root}/lib/**/*)
   end
 end

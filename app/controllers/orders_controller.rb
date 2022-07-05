@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
         # Create Order
         @order = Order.new
         @order.product = @product
-        @order.uuid = SecureRandom.uuid
+        @order.uuid = helpers.create_new_uuid
         @order.email = @order_params[:email]
         @order.name = @product.name + " 주문"
         @order.price = @product.price

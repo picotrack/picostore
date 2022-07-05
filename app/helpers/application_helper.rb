@@ -22,4 +22,8 @@ module ApplicationHelper
         ltp = number_with_delimiter ltp
         return "#{ltp}원"
     end
+
+    def create_new_uuid
+        return SecureRandom.uuid
+    end
 end

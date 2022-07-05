@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2022_07_01_104605) do
     t.string "uuid"
     t.string "email"
     t.string "name"
+    t.string "customer_name"
     t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -75,7 +76,7 @@ ActiveRecord::Schema.define(version: 2022_07_01_104605) do
     t.string "uuid"
     t.string "email"
     t.integer "amount"
-    t.boolean "complete"
+    t.boolean "confirmed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["uuid"], name: "index_payments_on_uuid", unique: true
