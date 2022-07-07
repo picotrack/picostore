@@ -43,11 +43,16 @@ class TossPaymentsController < ApplicationController
         begin
             result = TossPayments.confirm_payment(payment_uuid, order_uuid, amount)
             @payment.confirmed = true
-            render :json => {
-                message: "결제가 완료되었습니다",
-                payment: @payment.to_json,
-                result: result
-            }
+            # render :json => {
+            #     message: "결제가 완료되었습니다",
+            #     payment: @payment.to_json,
+            #     result: result
+            # }
+
+            redirect_to controller: "payments", action: "complete",
+                order_id: @order.id, payment_id: @payment.id
+
+
         rescue TossPayments::PaymentConfirmationException => error
             render :json => {
                 message: "error!",

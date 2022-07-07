@@ -1,11 +1,12 @@
 class OrdersController < ApplicationController
     before_action :get_order_product, only: [:new, :create]
+    before_action :get_order, only: [:show]
 
     def new
     end
 
     def create
-        @order_params = params.permit(:email, :code, :email_authentication_id, :product_id)
+        @order_params = params.permit(:email, :customer_name, :code, :email_authentication_id, :product_id)
         
         # Create Order
         @order = Order.new
@@ -13,6 +14,7 @@ class OrdersController < ApplicationController
         @order.uuid = helpers.create_new_uuid
         @order.email = @order_params[:email]
         @order.name = @product.name + " 주문"
+        @order.customer_name = @order_params[:customer_name]
         @order.price = @product.price
 
         if not @order.save
@@ -34,5 +36,9 @@ class OrdersController < ApplicationController
 
     def get_order_product
         @product = Product.find(params[:product_id])
+    end
+
+    def get_order
+        @order = Order.find(params[:id])
     end
 end

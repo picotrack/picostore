@@ -1,23 +1,18 @@
-<div class="bg-black" style="height: 100vw; max-height: 448px; flex-shrink: 0; -webkit-flex: 0;">
+<div class="bg-black shadow" style="flex-shrink: 0; -webkit-flex: 1;">
   <% if @product.image.attached? %>
-    <img class="object-cover" style="width: 100%; height: 100vw; max-height: 448px;" src="<%= rails_blob_path @product.image %>" alt="" />
+    <img class="object-cover" style="width: 100%; height: 100%;" src="<%= rails_blob_path @product.image %>" alt=""/>
   <% else %>
-    <img class="object-cover" style="width: 100%; height: 100vw; max-height: 448px;" src="http://placehold.jp/400x400.png" alt="" />
+    <img class="object-cover" style="width: 100%; height: 100%;" src="http://placehold.jp/400x400.png" alt=""/>
   <% end %>
 </div>
-<div class="p-6 relative bg-white rounded-tl-3xl rounded-tr-3xl" style="bottom: 30px;">
+<div class="p-6 relative bg-white" style="bottom: 30px;">
   <div class="flex flex-col w-full">
-    <div class="font-bold text-2xl text-gray-900 mb-2"><%= @product.name %></div>
-    <div class="font-light text-sm mb-2" >by <b><%= @product.owner.name %></b></div>
+    <div class="font-light text-sm text-gray-900 mb-1"><%= @product.owner.name %></div>
+    <div class="font-bold text-2xl text-gray-900 mb-1"><%= @product.name %></div>
     <div class="flex flex-row items-center justify-stretch w-full">
-      <div class="flex flex-row items-center justify-start space-x-2">
-        <div class="space-x-1">
-          <i class="fa-solid fa-star"></i>
-          <span class="text-sm">4.2</span>
-          <span class="text-sm text-gray-400 font-light"> (36,821 개의 평점) </span>
-        </div>
+      <div class="flex-1">
+        <p>여기다 뭐 쓰지</p>
       </div>
-      <div class="flex-1"></div>
       <div class="text-xl font-semibold"><%= @product.price_tag %></div>
     </div>
   </div>
@@ -25,16 +20,11 @@
   <div class="text-gray-600 text-md trix-content">
     <%= @product.description %>
   </div>
-  <div class="flex flex-col space-y-2">
-  </div>
+  <div class="flex flex-col space-y-2"></div>
 </div>
 <div class="flex flex-1"></div>
 <div class="sticky bottom-0 w-full bg-transparent p-6">
-  <a
-    href="/orders/new?product_id=<%= @product.id %>"
-    style="background-color: var(--primary-color);"
-    class="w-full font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
-  >
+  <a href="/orders/new?product_id=<%= @product.id %>" style="background-color: var(--color-1);" class="w-full font-semibold flex flex-col items-center justify-center p-4 text-xl shadow-lg text-white">
     <%= @product.call_to_action ? @product.call_to_action : "구매하기" %>
   </a>
 </div>

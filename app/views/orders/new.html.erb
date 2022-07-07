@@ -3,8 +3,13 @@
 </div>
 <form id="create-order-form" method="POST" name="order" action="/orders" class="flex flex-col p-6 space-y-3 justify-center">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <h1 class="text-3xl font-semibold text-gray-700">이메일을 알려주세요</h1>
+  <h1 class="text-3xl font-semibold text-gray-700">구매 정보를 입력해주세요</h1>
   <h3 class="text-lg font-base text-gray-500">입력한 이메일 주소로 파일이 전송됩니다</h3>
+  <div class="h-1"></div>
+  <div class="input-wrapper">
+    <label class="input-label">이름</label>
+    <input id="name-input" type="text" name="customer_name" placeholder="홍길동" style="font-size: 1.2rem;">
+  </div>
   <div class="h-1"></div>
   <div class="input-wrapper">
     <label class="input-label">이메일 주소</label>
@@ -21,43 +26,41 @@
 </form>
 <div class="flex-1"></div>
 <div id="resend-button-wrapper">
-  <div id="resend-button" class="w-full flex flex-row items-center justify-center text-base text-gray-500 font-light mb-4 underline">
+  <div id="resend-button" class="w-full flex flex-row items-center justify-center text-base text-gray-500 font-light underline">
     재전송하기
   </div>
 </div>
 <a
   id="send-email-button"
-    style="background-color: var(--primary-color);"
-    class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
+  style="background-color: var(--color-1);"
+    class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl border text-white"
   >
   인증번호 전송
 </a>
 <a
   id="verify-code-button"
-    style="background-color: var(--primary-color);"
-    class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
+  style="background-color: var(--color-1);"
+    class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl border text-white"
   >
   인증번호 확인
 </a>
 <a
   id="create-order-button"
-    style="background-color: var(--primary-color);"
-    class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl shadow-lg text-gray-700"
+  style="background-color: var(--color-1);"
+    class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl border text-white"
   >
   다음으로
 </a>
 <script>
+  // init all buttons
+  const hideAllButtonsExcept = (buttonSelector) => {
+    $("#send-email-button").hide()
+    $("#verify-code-button").hide()
+    $("#create-order-button").hide()
+    $(buttonSelector).show()
+  }
   var clientKey = 'test_ck_Kma60RZblrq9JQBeL2ErwzYWBn14'
   var tossPayments = TossPayments(clientKey)
-
-  const Phases = {
-    INIT: "INIT",
-    EMAIL_SENT: "EMAIL_SENT",
-    EMAIL_VERIFIED: "EMAIL_VERIFIED",
-    CODE_VERIFIED: "CODE_VERIFIED",
-  }
-
-  let currentPhase = Phases.INIT;
 
   const setEmailAuthenticationId = (emailAuthenticationId) => $("#email-authentication-id-input").val(emailAuthenticationId)
   const getEmailAuthenticationId = (emailAuthenticationId) => $("#email-authentication-id-input").val()
@@ -102,11 +105,13 @@
         const { email_authentication_id } = responseJSON
         setEmailAuthenticationId(email_authentication_id)
         const code = getCode()
-        currentPhase = Phases.EMAIL_SENT
+        hideAllButtonsExcept("#verify-code-button")
+        alert("이메일이 발송되었습니다. 메일함을 확인해주세요!")
     }).fail((res) => {
       alert(res.responseJSON?.message)
       console.error(res.responseJSON)
-      currentPhase = Phases.INIT
+        hideAllButtonsExcept("#send-email-button")
+
     })
   }
 
@@ -128,13 +133,12 @@
         code: code,
       }
     }).done((responseJSON) => {
-      currentPhase = Phases.EMAIL_VERIFIED
       alert(responseJSON?.message)
+      hideAllButtonsExcept("#create-order-button")
     }).fail((res) => {
       const { responseJSON } = res
       alert(responseJSON?.message)
       console.error(responseJSON)
-      currentPhase = Phases.EMAIL_SENT
     })
   }
 
@@ -147,6 +151,7 @@
   }
 
   $(document).ready(() => {
+    hideAllButtonsExcept("#send-email-button")
     $("#send-email-button").on("click", handleSendEmailButtonClick)
     $("#verify-code-button").on("click", handleVerifyCodeButtonClick)
     $("#create-order-button").on("click", handleCreateOrderButtonClick)

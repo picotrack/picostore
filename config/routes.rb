@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   # Payments
   get "payments/new", to: "payments#new"
+  get "payments/complete", to: "payments#complete"
 
   post "email_authentication_requests", to: "email_authentication_requests#create" # API Route
   post "email_authentication_requests/verify", to: "email_authentication_requests#verify"
