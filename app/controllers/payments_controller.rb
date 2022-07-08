@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
     before_action :get_payment_order, only: [:new, :complete]
-    before_action :get_payment_product, only: [:complete]
+    before_action :get_payment_product, only: [:new, :complete]
     before_action :get_payment, only: [:complete]
 
     def new
@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
     end
 
     def get_payment_product
-        # @product = Product.find(params[:product_id])
+        @product = Product.find(params[:product_id])
     end
 
     def get_payment

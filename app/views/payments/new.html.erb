@@ -26,33 +26,24 @@
     <li class="flex flex-row">
       - 디지털 상품을 원작자의 허락 없이 유포하는 경우 법적 처벌을 받을 수 있습니다.</li>
   </ul>
-  <%# <div class="flex flex-row space-x-4"> %>
-    <%# <b>고객명</b>5 %>
-      <%# <p><%= @order.customer_name %>
-      </p>
-      <%# </div> %>
-        <%# <div class="">
-    <input type="checkbox" name="agreement_1" id="">
-    <label for="agreement_1">자료를 무단으로 공유할 시, 법적 처벌을 받을 수 있습니다</label>
-  </div> %>
-        </section>
-        <div class="flex-1"></div>
-        <div id="action-button" style="background-color: var(--color-1);" class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-lg rounded-2xl border text-white" onclick="handlePaymentButtonClick()">
-          <%= format_price_tag @order.price %>
-          결제하기
-        </div>
-        <script>
-          var clientKey = '<%= ENV["TOSS_PAYMENTS_CLIENT_KEY"] %>'
-          var tossPayments = TossPayments(clientKey)
-          function handlePaymentButtonClick() {
-            // https://docs.tosspayments.com/reference/js-sdk#%EA%B2%B0%EC%A0%9C-%EC%9A%94%EC%B2%AD-%EC%B2%98%EB%A6%AC
-            tossPayments.requestPayment('카드', {
-              amount: <%= @product.price %>,
-              orderId: '<%= @order.uuid %>',
-              orderName: '<%= @order.name %>',
-              customerName: '<%= @order.customer_name %>',
-              successUrl: '<%= root_url %>toss_payments/success',
-              failUrl: '<%= root_url %>toss_payments/failure'
-            })
-          }
-        </script>
+</section>
+<div class="flex-1"></div>
+<div id="action-button" style="background-color: var(--color-1);" class="m-6 font-semibold flex flex-col items-center justify-center p-4 text-xl border text-white rounded-2xl" onclick="handlePaymentButtonClick()">
+  <%= format_price_tag @order.price %>
+  결제하기
+</div>
+<script>
+  var clientKey = '<%= ENV["TOSS_PAYMENTS_CLIENT_KEY"] %>'
+  var tossPayments = TossPayments(clientKey)
+  function handlePaymentButtonClick() {
+    // https://docs.tosspayments.com/reference/js-sdk#%EA%B2%B0%EC%A0%9C-%EC%9A%94%EC%B2%AD-%EC%B2%98%EB%A6%AC
+    tossPayments.requestPayment('카드', {
+      amount: <%= @product.price %>,
+      orderId: '<%= @order.uuid %>',
+      orderName: '<%= @order.name %>',
+      customerName: '<%= @order.customer_name %>',
+      successUrl: '<%= root_url %>toss_payments/success',
+      failUrl: '<%= root_url %>toss_payments/failure'
+    })
+  }
+</script>

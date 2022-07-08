@@ -24,7 +24,7 @@
 </div>
 <div class="flex flex-1"></div>
 <div class="sticky bottom-0 w-full bg-transparent p-6">
-  <a href="/orders/new?product_id=<%= @product.id %>" style="background-color: var(--color-1);" class="w-full font-semibold flex flex-col items-center justify-center p-4 text-xl shadow-lg text-white">
+  <a href="/orders/new?product_id=<%= @product.id %>" style="background-color: var(--color-1);" class="w-full font-semibold flex flex-col items-center justify-center p-4 text-xl shadow-lg text-white rounded-2xl">
     <%= @product.call_to_action ? @product.call_to_action : "구매하기" %>
   </a>
 </div>
